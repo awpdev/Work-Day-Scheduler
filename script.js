@@ -20,7 +20,6 @@ $( document ).ready(function() {
     if (note) {
       localStorage.setItem(hour, note);
     } 
-    textSaved = true;
 
     renderUI();
   
@@ -33,7 +32,9 @@ $( document ).ready(function() {
     for (let i = 0; i < workHours.length; i++) {
       let timeSlot = $("<div>").addClass("row");
       timeSlot.attr("id", "row-" + i);
+      // time column
       let timeCol = $("<div>").addClass("col-1 hour");
+      // text block the user can enter reminders
       let eventCol = $("<textarea>").addClass("col-10");
       eventCol.attr("id", "text-hr" + i);
       eventCol.addClass("user-note");
@@ -44,29 +45,26 @@ $( document ).ready(function() {
       } else {
         eventCol.addClass("current");
       }
+      // button to save the text block on the same row
       let btnCol = $("<div>").addClass("col-sm-1 saveBtn");
       btnCol.attr("id", "hr" + i);
       timeSlot.attr("time", workHours[i]);
       timeCol.text(timeSlot.attr("time"));
       let saveIcon = $("<i>");
       saveIcon.addClass("far fa-save");
-
       btnCol.append(saveIcon);
+      // append each of the above to each row
       timeSlot.append(timeCol);
       timeSlot.append(eventCol);
       timeSlot.append(btnCol);
-      
+      // append everything to the container
       $(".container").append(timeSlot);
       getNotes();
     }
-    
-    // if (textSaved) console.log(userText);
-    console.log("rendered");
   }
 
   // retrieve user text from local storage
   function getNotes() {
-    console.log("getnotes");
     $("#text-hr0").text(localStorage.getItem("hr0"));
     $("#text-hr1").text(localStorage.getItem("hr1"));
     $("#text-hr2").text(localStorage.getItem("hr2"));
